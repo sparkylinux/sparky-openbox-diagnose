@@ -1,0 +1,102 @@
+#! /bin/bash
+# Sparky Openbox diagnosing tool
+# It checks default appliacations should run when Openbox starts
+# deps: coreutils, sysvinit-utils
+DATE=`date`
+echo ""
+echo "Sparky Openbox Disgnosing Tool $DATE"
+echo ""
+# polkit
+sparky-polkit
+echo ""
+#nitrogen
+if [ -f /usr/bin/nitrogen ]; then
+	echo "nitrogen is installed"
+else
+	echo "nitrogen is NOT installed so install it:"
+	echo "sudo apt install nitrogen" 
+fi
+echo ""
+# tint2
+CHECKTINT2=`pidof tint2`
+if [ "$CHECKTINT2" != "" ]; then
+	echo "tint2 is running OK, PID: $CHECKTINT2"
+else
+	echo "tint2 is NOT running so launch it:"
+	echo "tint2 &"
+fi
+echo ""
+# xscreensaver
+CHECKXSCREEN=`pidof xscreensaver`
+if [ "$CHECKXSCREEN" != "" ]; then
+	echo "xscreensaver is running OK, PID: $CHECKXSCREEN"
+else
+	echo "xscreensaver is NOT running so launch it:"
+	echo "xscreensaver -nosplash &"
+fi
+echo ""
+# pnmixer
+CHECKPNMIXER=`pidof pnmixer`
+if [ "$CHECKPNMIXER" != "" ]; then
+	echo "pnmixer is running OK, PID: $CHECKPNMIXER"
+else
+	echo "pnmixer is NOT running so launch it:"
+	echo "pnmixer &"
+fi
+echo ""
+# network-manager applet
+CHECKNM=`pidof nm-applet`
+if [ "$CHECKNM" != "" ]; then
+	echo "nm-applet is running OK, PID: $CHECKNM"
+else
+	echo "nm-applet is NOT running so launch it:"
+	echo "nm-applet-reload &"
+fi
+echo ""
+# xfce4-power-manager
+CHECKPOWER=`pidof nm-applet`
+if [ "$CHECKPOWER" != "" ]; then
+	echo "xfce4-power-manager is running OK, PID: $CHECKPOWER"
+else
+	echo "xfce4-power-manager is NOT running so launch it:"
+	echo "xfce4-power-manager &"
+fi
+echo ""
+# xdg-user-dirs
+if [ -f /usr/bin/xdg-user-dirs-gtk-update ]; then
+	echo "xde-user-dirs-gtk is installed"
+else
+	echo "xde-user-dirs-gtk is NOT installed so install it:"
+	echo "sudo apt install xdg-user-dirs-gtk"
+fi
+echo ""
+# pcmanfm or thunar
+CHECKPCMAN=`which pcmanfm`
+if [ "$CHECKPCMAN" != "" ]; then
+	CHECKPCMANFM=`pidof pcmanfm`
+	if [ "$CHECKPCMANFM" != "" ]; then
+		echo "pcmanfm is running OK, PID: $CHECKPCMANFM"
+	else
+		echo "pcmanfm is NOT running so launch it:"
+		echo "pcmanfm -d &"
+	fi
+else
+	CHECKTHUNAR=`pidof thunar`
+	if [ "$CHECKTHUNAR" != "" ]; then
+		echo "thunar is running OK, PID: $CHECKTHUNAR"
+	else
+		echo "thunar is NOT running so launch it:"
+		echo "thunar --daemon &"
+	fi
+fi
+echo ""
+# openbox
+CHECKOB=`pidof openbox`
+if [ "$CHECKOB" != "" ]; then
+	echo "openbox is running OK, PID: $CHECKOB"
+else
+	echo "openbox is NOT running so launch it:"
+	echo "openbox &"
+fi
+echo ""
+exit 0
