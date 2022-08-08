@@ -2,6 +2,8 @@
 # Sparky Openbox diagnosing tool
 # It checks default appliacations should run when Openbox starts
 # deps: coreutils, sysvinit-utils
+# Copyright Paweł Pijanowski <pavroo@onet.eu> under GNU GPL 3
+# last update 2022/08/08
 DATE=`date`
 echo ""
 echo "Sparky Openbox Disgnosing Tool $DATE"
@@ -54,7 +56,7 @@ else
 fi
 echo ""
 # xfce4-power-manager
-CHECKPOWER=`pidof nm-applet`
+CHECKPOWER=`pidof xfce4-power-manager`
 if [ "$CHECKPOWER" != "" ]; then
 	echo "xfce4-power-manager is running OK, PID: $CHECKPOWER"
 else
@@ -75,17 +77,17 @@ CHECKPCMAN=`which pcmanfm`
 if [ "$CHECKPCMAN" != "" ]; then
 	CHECKPCMANFM=`pidof pcmanfm`
 	if [ "$CHECKPCMANFM" != "" ]; then
-		echo "pcmanfm is running OK, PID: $CHECKPCMANFM"
+		echo "pcmanfm daemon is running OK, PID: $CHECKPCMANFM"
 	else
-		echo "pcmanfm is NOT running so launch it:"
+		echo "pcmanfm daemon is NOT running so launch it:"
 		echo "pcmanfm -d &"
 	fi
 else
 	CHECKTHUNAR=`pidof thunar`
 	if [ "$CHECKTHUNAR" != "" ]; then
-		echo "thunar is running OK, PID: $CHECKTHUNAR"
+		echo "thunar daemon is running OK, PID: $CHECKTHUNAR"
 	else
-		echo "thunar is NOT running so launch it:"
+		echo "thunar daemon is NOT running so launch it:"
 		echo "thunar --daemon &"
 	fi
 fi
@@ -98,5 +100,7 @@ else
 	echo "openbox is NOT running so launch it:"
 	echo "openbox &"
 fi
+echo ""
+echo "if you see any problem, copy & past it to sparky forums to get support"
 echo ""
 exit 0
